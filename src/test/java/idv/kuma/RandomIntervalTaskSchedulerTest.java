@@ -8,7 +8,7 @@ public class RandomIntervalTaskSchedulerTest {
     @Test
     public void name() throws InterruptedException {
 
-        RandomIntervalTaskScheduler first = new RandomIntervalTaskScheduler();
+        RandomIntervalTaskScheduler first = new RandomIntervalTaskScheduler(0);
 
 
         System.out.println("go:" + LocalDateTime.now());
