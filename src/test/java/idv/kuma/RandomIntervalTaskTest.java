@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import java.time.LocalDateTime;
 
-public class RandomIntervalTaskSchedulerTest {
+public class RandomIntervalTaskTest {
     @Test
     public void name() throws InterruptedException {
 
-        RandomIntervalTaskScheduler first = new RandomIntervalTaskScheduler(0);
+        RandomIntervalTask first = new SampleTask(0, 1, 3, 4, 9);
 
 
         System.out.println("go:" + LocalDateTime.now());
