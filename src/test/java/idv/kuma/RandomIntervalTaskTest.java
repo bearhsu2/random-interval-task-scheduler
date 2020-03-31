@@ -12,8 +12,8 @@ public class RandomIntervalTaskTest {
         RandomIntervalTask first = new RandomIntervalTask(
                 Executors.newScheduledThreadPool(10),
                 new SampleTask(),
-                1, 3,
-                4, 9
+                new RandomIntervalTask.Range(1, 3),
+                new RandomIntervalTask.Range(4, 9)
         );
 
 

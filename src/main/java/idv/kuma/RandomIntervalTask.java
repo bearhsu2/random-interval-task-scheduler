@@ -10,20 +10,17 @@ public class RandomIntervalTask {
     private ScheduledExecutorService executorService;
     private TaskWrapper taskWrapper;
 
-    private int firstStart;
-    private int firstEnd;
+    private Range firstRange;
 
-
-    public RandomIntervalTask(ScheduledExecutorService executorService, Runnable task, int firstStart, int firstEnd, int secondStart, int secondEnd) {
+    public RandomIntervalTask(ScheduledExecutorService executorService, Runnable task, Range firstRange, Range secondRange) {
         this.executorService = executorService;
-        this.firstStart = firstStart;
-        this.firstEnd = firstEnd;
-        this.taskWrapper = new TaskWrapper(executorService, task, secondStart, secondEnd);
+        this.firstRange = firstRange;
+        this.taskWrapper = new TaskWrapper(executorService, task, secondRange.getStart(), secondRange.getEnd());
     }
 
 
     public void trigger() {
-        executorService.schedule(taskWrapper, RandomUtils.nextInt(firstStart, firstEnd), TimeUnit.SECONDS);
+        executorService.schedule(taskWrapper, RandomUtils.nextInt(firstRange.getStart(), firstRange.getEnd()), TimeUnit.SECONDS);
     }
 
 
@@ -52,4 +49,24 @@ public class RandomIntervalTask {
 
     }
 
+    static class Range {
+        private final int start;
+        private final int end;
+
+
+        Range(int start, int firstEnd) {
+            this.start = start;
+            this.end = firstEnd;
+        }
+
+
+        public int getStart() {
+            return start;
+        }
+
+
+        public int getEnd() {
+            return end;
+        }
+    }
 }
