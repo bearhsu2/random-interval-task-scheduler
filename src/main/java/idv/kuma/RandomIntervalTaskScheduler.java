@@ -38,8 +38,13 @@ public class RandomIntervalTaskScheduler extends TimerTask {
         System.out.println("--------------------------------------");
 
 
-        index++;
-        executorService.schedule(this, RandomUtils.nextInt(4, 9), TimeUnit.SECONDS);
+        reTrigger(this);
 
+    }
+
+
+    private void reTrigger(RandomIntervalTaskScheduler command) {
+        index++;
+        executorService.schedule(command, RandomUtils.nextInt(4, 9), TimeUnit.SECONDS);
     }
 }
