@@ -8,7 +8,7 @@ public class RandomIntervalTaskTest {
     @Test
     public void name() throws InterruptedException {
 
-        RandomIntervalTask first = new SampleTask(0, 1, 3, 4, 9);
+        RandomIntervalTask first = new RandomIntervalTask(new SampleTask(), 1, 3, 4, 9);
 
 
         System.out.println("go:" + LocalDateTime.now());

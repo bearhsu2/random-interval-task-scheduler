@@ -2,18 +2,12 @@ package idv.kuma;
 
 import java.time.LocalDateTime;
 
-public class SampleTask extends RandomIntervalTask {
+public class SampleTask implements Runnable {
     private int index;
 
 
-    public SampleTask(int index, int firstStart, int firstEnd, int secondStart, int secondEnd) {
-        super(firstStart, firstEnd, secondStart, secondEnd);
-        this.index = index;
-    }
-
-
     @Override
-    public void doRun() {
+    public void run() {
         System.out.println(index + " start:" + LocalDateTime.now());
         try {
             Thread.sleep(1_000L);

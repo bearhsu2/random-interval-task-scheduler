@@ -7,9 +7,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public abstract class RandomIntervalTask extends TimerTask {
+public class RandomIntervalTask extends TimerTask {
 
     private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
+
+    private Runnable task;
 
     private int firstStart;
     private int firstEnd;
@@ -17,7 +19,8 @@ public abstract class RandomIntervalTask extends TimerTask {
     private int secondEnd;
 
 
-    public RandomIntervalTask(int firstStart, int firstEnd, int secondStart, int secondEnd) {
+    public RandomIntervalTask(Runnable task, int firstStart, int firstEnd, int secondStart, int secondEnd) {
+        this.task = task;
         this.firstStart = firstStart;
         this.firstEnd = firstEnd;
         this.secondStart = secondStart;
@@ -32,17 +35,14 @@ public abstract class RandomIntervalTask extends TimerTask {
 
     @Override
     public final void run() {
-        doRun();
+        task.run();
 
-        reTrigger(this);
+        reTrigger();
 
     }
 
 
-    abstract void doRun();
-
-
-    private void reTrigger(RandomIntervalTask command) {
-        executorService.schedule(command, RandomUtils.nextInt(secondStart, secondEnd), TimeUnit.SECONDS);
+    private void reTrigger() {
+        executorService.schedule(this, RandomUtils.nextInt(secondStart, secondEnd), TimeUnit.SECONDS);
     }
 }
