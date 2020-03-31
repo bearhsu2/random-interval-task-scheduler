@@ -2,8 +2,6 @@ package idv.kuma;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class CustomTimerTaskTest {
     @Test
     public void name() throws InterruptedException {
@@ -12,8 +10,7 @@ public class CustomTimerTaskTest {
 
         first.trigger();
 
-
-        Thread.sleep(30_000L);
+        Thread.sleep(60_000L);
 
     }
 }

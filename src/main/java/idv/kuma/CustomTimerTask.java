@@ -1,5 +1,7 @@
 package idv.kuma;
 
+import org.apache.commons.lang3.RandomUtils;
+
 import java.time.LocalDateTime;
 import java.util.TimerTask;
 import java.util.concurrent.Executors;
@@ -10,11 +12,19 @@ public class CustomTimerTask extends TimerTask {
 
     private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
 
+
     private int index;
+
 
     public CustomTimerTask(int index) {
         this.index = index;
     }
+
+
+    public void trigger() {
+        executorService.schedule(this, RandomUtils.nextInt(1, 3), TimeUnit.SECONDS);
+    }
+
 
     @Override
     public void run() {
@@ -25,14 +35,10 @@ public class CustomTimerTask extends TimerTask {
             e.printStackTrace();
         }
         System.out.println(index + " end:" + LocalDateTime.now());
+        System.out.println("--------------------------------------");
 
-        CustomTimerTask next = new CustomTimerTask(index+1);
-        executorService.schedule(next, 5, TimeUnit.SECONDS);
+        CustomTimerTask next = new CustomTimerTask(index + 1);
+        executorService.schedule(next, RandomUtils.nextInt(4, 9), TimeUnit.SECONDS);
 
-    }
-
-
-    public void trigger() {
-        executorService.schedule(this, 5, TimeUnit.SECONDS);
     }
 }
