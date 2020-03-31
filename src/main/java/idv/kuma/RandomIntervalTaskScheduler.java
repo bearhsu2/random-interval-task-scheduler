@@ -28,6 +28,14 @@ public class RandomIntervalTaskScheduler extends TimerTask {
 
     @Override
     public void run() {
+        doRun();
+
+        reTrigger(this);
+
+    }
+
+
+    private void doRun() {
         System.out.println(index + " start:" + LocalDateTime.now());
         try {
             Thread.sleep(1_000L);
@@ -36,10 +44,6 @@ public class RandomIntervalTaskScheduler extends TimerTask {
         }
         System.out.println(index + " end:" + LocalDateTime.now());
         System.out.println("--------------------------------------");
-
-
-        reTrigger(this);
-
     }
 
 
