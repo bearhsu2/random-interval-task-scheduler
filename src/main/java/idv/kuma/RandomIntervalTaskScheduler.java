@@ -44,11 +44,11 @@ public class RandomIntervalTaskScheduler extends TimerTask {
         }
         System.out.println(index + " end:" + LocalDateTime.now());
         System.out.println("--------------------------------------");
+        index++;
     }
 
 
     private void reTrigger(RandomIntervalTaskScheduler command) {
-        index++;
         executorService.schedule(command, RandomUtils.nextInt(4, 9), TimeUnit.SECONDS);
     }
 }
