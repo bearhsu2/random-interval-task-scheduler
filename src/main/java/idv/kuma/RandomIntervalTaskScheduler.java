@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class CustomTimerTask extends TimerTask {
+public class RandomIntervalTaskScheduler extends TimerTask {
 
     private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
 
@@ -16,7 +16,7 @@ public class CustomTimerTask extends TimerTask {
     private int index;
 
 
-    public CustomTimerTask(int index) {
+    public RandomIntervalTaskScheduler(int index) {
         this.index = index;
     }
 
