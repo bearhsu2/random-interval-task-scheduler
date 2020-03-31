@@ -2,47 +2,54 @@ package idv.kuma;
 
 import org.apache.commons.lang3.RandomUtils;
 
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public abstract class RandomIntervalTask extends TimerTask {
+public class RandomIntervalTask {
 
-    private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(10);
+    private ScheduledExecutorService executorService;
+    private TaskWrapper taskWrapper;
 
     private int firstStart;
     private int firstEnd;
-    private int secondStart;
-    private int secondEnd;
 
 
-    public RandomIntervalTask(int firstStart, int firstEnd, int secondStart, int secondEnd) {
+    public RandomIntervalTask(ScheduledExecutorService executorService, Runnable task, int firstStart, int firstEnd, int secondStart, int secondEnd) {
+        this.executorService = executorService;
         this.firstStart = firstStart;
         this.firstEnd = firstEnd;
-        this.secondStart = secondStart;
-        this.secondEnd = secondEnd;
+        this.taskWrapper = new TaskWrapper(executorService, task, secondStart, secondEnd);
     }
 
 
-    public final void trigger() {
-        executorService.schedule(this, RandomUtils.nextInt(firstStart, firstEnd), TimeUnit.SECONDS);
+    public void trigger() {
+        executorService.schedule(taskWrapper, RandomUtils.nextInt(firstStart, firstEnd), TimeUnit.SECONDS);
     }
 
 
-    @Override
-    public final void run() {
-        doRun();
+    private static class TaskWrapper implements Runnable {
 
-        reTrigger(this);
+
+        private Runnable task;
+        private int secondStart;
+        private int secondEnd;
+        private ScheduledExecutorService executorService;
+
+
+        public TaskWrapper(ScheduledExecutorService executorService, Runnable task, int secondStart, int secondEnd) {
+            this.task = task;
+            this.executorService = executorService;
+            this.secondStart = secondStart;
+            this.secondEnd = secondEnd;
+        }
+
+        @Override
+        public void run() {
+            task.run();
+
+            executorService.schedule(this, RandomUtils.nextInt(secondStart, secondEnd), TimeUnit.SECONDS);
+        }
 
     }
 
-
-    abstract void doRun();
-
-
-    private void reTrigger(RandomIntervalTask command) {
-        executorService.schedule(command, RandomUtils.nextInt(secondStart, secondEnd), TimeUnit.SECONDS);
-    }
 }
