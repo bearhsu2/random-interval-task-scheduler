@@ -37,8 +37,9 @@ public class CustomTimerTask extends TimerTask {
         System.out.println(index + " end:" + LocalDateTime.now());
         System.out.println("--------------------------------------");
 
-        CustomTimerTask next = new CustomTimerTask(index + 1);
-        executorService.schedule(next, RandomUtils.nextInt(4, 9), TimeUnit.SECONDS);
+
+        index++;
+        executorService.schedule(this, RandomUtils.nextInt(4, 9), TimeUnit.SECONDS);
 
     }
 }
