@@ -9,23 +9,23 @@ class TaskWrapper implements Runnable {
 
 
     private Runnable task;
-    private int secondStart;
-    private int secondEnd;
+    private long startInclusive;
+    private long endExclusive;
     private ScheduledExecutorService executorService;
 
 
-    public TaskWrapper(ScheduledExecutorService executorService, Runnable task, int secondStart, int secondEnd) {
+    public TaskWrapper(ScheduledExecutorService executorService, Runnable task, Range range) {
         this.task = task;
         this.executorService = executorService;
-        this.secondStart = secondStart;
-        this.secondEnd = secondEnd;
+        this.startInclusive = range.getStartInclusive();
+        this.endExclusive = range.getEndExclusive();
     }
 
     @Override
     public void run() {
         task.run();
 
-        executorService.schedule(this, RandomUtils.nextInt(secondStart, secondEnd), TimeUnit.SECONDS);
+        executorService.schedule(this, RandomUtils.nextLong(startInclusive, endExclusive), TimeUnit.SECONDS);
     }
 
 }

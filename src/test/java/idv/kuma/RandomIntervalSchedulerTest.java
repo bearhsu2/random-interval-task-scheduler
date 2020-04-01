@@ -26,22 +26,26 @@ public class RandomIntervalSchedulerTest {
 
         Runnable mockedRunnable = Mockito.mock(Runnable.class);
 
-        Range firstRange = new Range(1, 2);
-        Range secondRange = new Range(3, 4);
-
         RandomIntervalScheduler randomIntervalScheduler = new RandomIntervalScheduler(
                 mockedService,
                 mockedRunnable,
-                firstRange,
-                secondRange
+                new Range(1000L, 1001L),
+                new Range(3000L, 3001L)
         );
 
         randomIntervalScheduler.trigger();
 
-        Mockito.verify(mockedService).schedule(any(TaskWrapper.class), eq(1L), eq(TimeUnit.SECONDS));
+        Mockito.verify(mockedService).schedule(any(TaskWrapper.class), eq(1000L), eq(TimeUnit.MILLISECONDS));
 
 
     }
+
+
+    @Test
+    public void Illegal_Range() {
+
+    }
+
 
 
     @Ignore

@@ -1,22 +1,22 @@
 package idv.kuma;
 
 class Range {
-    private final int startInclusive;
-    private final int endExclusive;
+    private final long startInclusive;
+    private final long endExclusive;
 
 
-    Range(int startInclusive, int firstEnd) {
+    Range(long startInclusive, long firstEnd) {
         this.startInclusive = startInclusive;
         this.endExclusive = firstEnd;
     }
 
 
-    public int getStartInclusive() {
+    public long getStartInclusive() {
         return startInclusive;
     }
 
 
-    public int getEndExclusive() {
+    public long getEndExclusive() {
         return endExclusive;
     }
 }

@@ -15,12 +15,12 @@ public class RandomIntervalScheduler {
     public RandomIntervalScheduler(ScheduledExecutorService executorService, Runnable task, Range firstRange, Range secondRange) {
         this.executorService = executorService;
         this.firstRange = firstRange;
-        this.taskWrapper = new TaskWrapper(executorService, task, secondRange.getStartInclusive(), secondRange.getEndExclusive());
+        this.taskWrapper = new TaskWrapper(executorService, task, secondRange);
     }
 
 
     public void trigger() {
-        executorService.schedule(taskWrapper, RandomUtils.nextInt(firstRange.getStartInclusive(), firstRange.getEndExclusive()), TimeUnit.SECONDS);
+        executorService.schedule(taskWrapper, RandomUtils.nextLong(firstRange.getStartInclusive(), firstRange.getEndExclusive()), TimeUnit.MILLISECONDS);
     }
 
 
