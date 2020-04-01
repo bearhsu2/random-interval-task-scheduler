@@ -24,49 +24,4 @@ public class RandomIntervalScheduler {
     }
 
 
-    private static class TaskWrapper implements Runnable {
-
-
-        private Runnable task;
-        private int secondStart;
-        private int secondEnd;
-        private ScheduledExecutorService executorService;
-
-
-        public TaskWrapper(ScheduledExecutorService executorService, Runnable task, int secondStart, int secondEnd) {
-            this.task = task;
-            this.executorService = executorService;
-            this.secondStart = secondStart;
-            this.secondEnd = secondEnd;
-        }
-
-        @Override
-        public void run() {
-            task.run();
-
-            executorService.schedule(this, RandomUtils.nextInt(secondStart, secondEnd), TimeUnit.SECONDS);
-        }
-
-    }
-
-    static class Range {
-        private final int startInclusive;
-        private final int endExclusive;
-
-
-        Range(int startInclusive, int firstEnd) {
-            this.startInclusive = startInclusive;
-            this.endExclusive = firstEnd;
-        }
-
-
-        public int getStartInclusive() {
-            return startInclusive;
-        }
-
-
-        public int getEndExclusive() {
-            return endExclusive;
-        }
-    }
 }

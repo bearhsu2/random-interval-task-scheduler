@@ -1,6 +1,7 @@
 package idv.kuma;
 
 import org.apache.commons.lang3.RandomUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -25,8 +26,8 @@ public class RandomIntervalSchedulerTest {
 
         Runnable mockedRunnable = Mockito.mock(Runnable.class);
 
-        RandomIntervalScheduler.Range firstRange = new RandomIntervalScheduler.Range(1, 2);
-        RandomIntervalScheduler.Range secondRange = new RandomIntervalScheduler.Range(3, 4);
+        Range firstRange = new Range(1, 2);
+        Range secondRange = new Range(3, 4);
 
         RandomIntervalScheduler randomIntervalScheduler = new RandomIntervalScheduler(
                 mockedService,
@@ -37,20 +38,21 @@ public class RandomIntervalSchedulerTest {
 
         randomIntervalScheduler.trigger();
 
-        Mockito.verify(mockedService).schedule(any(Runnable.class), eq(1L), eq(TimeUnit.SECONDS));
+        Mockito.verify(mockedService).schedule(any(TaskWrapper.class), eq(1L), eq(TimeUnit.SECONDS));
 
 
     }
 
 
+    @Ignore
     @Test
     public void name() throws InterruptedException {
 
         RandomIntervalScheduler first = new RandomIntervalScheduler(
                 Executors.newScheduledThreadPool(10),
                 new SampleTask(),
-                new RandomIntervalScheduler.Range(1, 3),
-                new RandomIntervalScheduler.Range(4, 9)
+                new Range(1, 3),
+                new Range(4, 9)
         );
 
 
