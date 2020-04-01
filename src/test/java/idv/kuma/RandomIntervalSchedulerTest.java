@@ -55,8 +55,8 @@ public class RandomIntervalSchedulerTest {
         RandomIntervalScheduler first = new RandomIntervalScheduler(
                 Executors.newScheduledThreadPool(10),
                 new SampleTask(),
-                new Range(1, 3),
-                new Range(4, 9)
+                new Range(1000, 3000),
+                new Range(4000, 9000)
         );
 
 

@@ -25,7 +25,7 @@ class TaskWrapper implements Runnable {
     public void run() {
         task.run();
 
-        executorService.schedule(this, RandomUtils.nextLong(startInclusive, endExclusive), TimeUnit.SECONDS);
+        executorService.schedule(this, RandomUtils.nextLong(startInclusive, endExclusive), TimeUnit.MILLISECONDS);
     }
 
 }
