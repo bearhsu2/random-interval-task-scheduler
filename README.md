@@ -1,0 +1,1 @@
+This package provides a task scheduler that starts and repeats the provided task with random intervals
