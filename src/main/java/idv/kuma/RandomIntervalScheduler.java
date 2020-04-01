@@ -5,14 +5,14 @@ import org.apache.commons.lang3.RandomUtils;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class RandomIntervalTask {
+public class RandomIntervalScheduler {
 
     private ScheduledExecutorService executorService;
     private TaskWrapper taskWrapper;
 
     private Range firstRange;
 
-    public RandomIntervalTask(ScheduledExecutorService executorService, Runnable task, Range firstRange, Range secondRange) {
+    public RandomIntervalScheduler(ScheduledExecutorService executorService, Runnable task, Range firstRange, Range secondRange) {
         this.executorService = executorService;
         this.firstRange = firstRange;
         this.taskWrapper = new TaskWrapper(executorService, task, secondRange.getStart(), secondRange.getEnd());
